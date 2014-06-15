@@ -5,4 +5,5 @@ Bu betiği kullanarak belirttiğiniz kelimeyi, belirttiğiniz domain için kaç�
 Kullanımı için example.php yi inceleyin.
 
 Tayfun Erbilen
+
 http://www.erbilen.net
