@@ -1,5 +1,3 @@
-<?php
-
 /**
  * Class GooglePositionFinder
  */
@@ -16,8 +14,7 @@ class GooglePositionFinder
     {
 
         $source = $this->getSource($keyword, $page, $domain);
-        $data = $this->parse($source);
-        return $data;
+        echo $source;
 
     }
 
@@ -51,7 +48,14 @@ class GooglePositionFinder
         if ($page > 1) $page = ($page - 1) * 10;
         else $page = '0';
 
-        $source = file_get_contents('https://www.google.' . $domain . '/search?q=' . rawurlencode($keyword) . '&start=' . $page);
+        // $useragent = "Opera/9.80 (J2ME/MIDP; Opera Mini/4.2.14912/870; U; id) Presto/2.4.15";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://www.google.' . $domain . '/search?q=' . rawurlencode($keyword) . '&start=' . $page);
+        curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // set user agent
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+        $source = curl_exec($ch);
+        curl_close($ch);
         $source = str_replace(array("\n", "\r", "\t"), NULL, $source);
         return $source;
 
