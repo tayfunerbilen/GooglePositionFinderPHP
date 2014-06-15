@@ -49,9 +49,6 @@ class GooglePositionFinder
         if ($page > 1) $page = ($page - 1) * 10;
         else $page = '0';
 
-        // country
-        if ($country) $country = '.' . $country;
-
         $source = file_get_contents('https://www.google.' . $domain . '/search?q=' . rawurlencode($keyword) . '&start=' . $page);
         $source = str_replace(array("\n", "\r", "\t"), NULL, $source);
         return $source;
