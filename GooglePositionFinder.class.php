@@ -14,8 +14,8 @@ class GooglePositionFinder
     {
 
         $source = $this->getSource($keyword, $page, $domain);
-        echo $source;
-
+        $data = $this->parse($source);
+        return $data;
     }
 
     /**
@@ -25,13 +25,14 @@ class GooglePositionFinder
     public function parse($source)
     {
 
-        preg_match_all('/<h3 class="r"><a href="(.*?)">(.*?)<\/a><\/h3>/', $source, $result);
-        $title = array_map('strip_tags', $result[2]);
+        preg_match_all('/<h3 class="r"><a href=\"(.+?)\"(.+?)>(.+?)<\/a><\/h3>/', $source, $result);
+
+        $title = array_map('strip_tags', $result[3]);
         foreach ($result[1] as $key => $url) {
-            parse_str(str_replace('/url?', '', $url), $output);
-            $data[] = array('url' => $output['q'], 'title' => $title[$key]);
+            $data[] = array('url' => $url, 'title' => $title[$key]);
         }
         return $data;
+
 
     }
 
