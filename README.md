@@ -6,4 +6,4 @@ Kullanımı için example.php yi inceleyin.
 
 Tayfun Erbilen
 
-http://www.erbilen.net
+Demo: http://www.darkod.com/gpf/example.php
