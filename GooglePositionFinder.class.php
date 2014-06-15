@@ -1,8 +1,14 @@
+<?php
+
 /**
  * Class GooglePositionFinder
  */
 class GooglePositionFinder
 {
+
+    public $source;
+    public $data = array();
+    public $find = 0;
 
     /**
      * @param        $keyword
@@ -29,9 +35,9 @@ class GooglePositionFinder
 
         $title = array_map('strip_tags', $result[3]);
         foreach ($result[1] as $key => $url) {
-            $data[] = array('url' => $url, 'title' => $title[$key]);
+            $this->data[] = array('url' => $url, 'title' => $title[$key]);
         }
-        return $data;
+        return $this->data;
 
 
     }
@@ -57,9 +63,24 @@ class GooglePositionFinder
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
         $source = curl_exec($ch);
         curl_close($ch);
-        $source = str_replace(array("\n", "\r", "\t"), NULL, $source);
-        return $source;
+        $this->source = str_replace(array("\n", "\r", "\t"), NULL, $source);
+        return $this->source;
 
+    }
+
+    /**
+     * Domaine göre eşleşen
+     *
+     * @param $domain
+     * @return int
+     */
+    public function matchResult($domain)
+    {
+        foreach ($this->data as $result) {
+            if (strstr($result['url'], $domain))
+                $this->find += 1;
+        }
+        return $this->find;
     }
 
 }
