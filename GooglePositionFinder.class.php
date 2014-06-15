@@ -25,6 +25,8 @@ class GooglePositionFinder
     }
 
     /**
+     * Başlık ve url leri geriye döndürür.
+     * 
      * @param $source
      * @return array
      */
@@ -43,6 +45,8 @@ class GooglePositionFinder
     }
 
     /**
+     * Kaynak kodları geriye döndürür.
+     * 
      * @param      $keyword
      * @param      $page
      * @param null $country
@@ -69,7 +73,7 @@ class GooglePositionFinder
     }
 
     /**
-     * Domaine göre eşleşen
+     * Domaine göre eşleşen kaç sonuç olduğunu geriye döndürür.
      *
      * @param $domain
      * @return int
