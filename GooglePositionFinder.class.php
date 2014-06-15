@@ -10,10 +10,10 @@ class GooglePositionFinder
      * @param null   $country
      * @return array
      */
-    public function query($keyword, $page = '0', $country = null)
+    public function query($keyword, $page = '0', $domain = 'com')
     {
 
-        $source = $this->getSource($keyword, $page, $country);
+        $source = $this->getSource($keyword, $page, $domain);
         $data = $this->parse($source);
         return $data;
 
@@ -42,7 +42,7 @@ class GooglePositionFinder
      * @param null $country
      * @return mixed|string
      */
-    public function getSource($keyword, $page, $country = null)
+    public function getSource($keyword, $page, $domain)
     {
 
         // page
@@ -52,7 +52,7 @@ class GooglePositionFinder
         // country
         if ($country) $country = '.' . $country;
 
-        $source = file_get_contents('https://www.google.com' . $country . '/search?q=' . rawurlencode($keyword) . '&start=' . $page);
+        $source = file_get_contents('https://www.google.' . $domain . '/search?q=' . rawurlencode($keyword) . '&start=' . $page);
         $source = str_replace(array("\n", "\r", "\t"), NULL, $source);
         return $source;
 
