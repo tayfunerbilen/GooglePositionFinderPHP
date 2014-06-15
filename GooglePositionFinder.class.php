@@ -18,7 +18,6 @@ class GooglePositionFinder
      */
     public function query($keyword, $page = '0', $domain = 'com')
     {
-
         $source = $this->getSource($keyword, $page, $domain);
         $data = $this->parse($source);
         return $data;
@@ -26,7 +25,7 @@ class GooglePositionFinder
 
     /**
      * Başlık ve url leri geriye döndürür.
-     * 
+     *
      * @param $source
      * @return array
      */
@@ -46,7 +45,7 @@ class GooglePositionFinder
 
     /**
      * Kaynak kodları geriye döndürür.
-     * 
+     *
      * @param      $keyword
      * @param      $page
      * @param null $country
@@ -64,7 +63,8 @@ class GooglePositionFinder
         curl_setopt($ch, CURLOPT_URL, 'http://www.google.' . $domain . '/search?q=' . rawurlencode($keyword) . '&start=' . $page);
         curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // set user agent
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $source = curl_exec($ch);
         curl_close($ch);
         $this->source = str_replace(array("\n", "\r", "\t"), NULL, $source);
