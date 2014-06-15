@@ -59,7 +59,3 @@ class GooglePositionFinder
     }
 
 }
-
-$google = new GooglePositionFinder();
-$data = $google->query('uzman cevap', 1, 'tr');
-print_r($data);
